@@ -13,9 +13,10 @@ font_size = 40; // mm
 // ========================================
 // Dimensional Parameters
 // ========================================
-buffer_size = 3; // Margin around text on all sides (mm)
-text_height = 5; // Height of text above base (mm)
-base_height = 2; // Thickness of base plate (mm)
+base_width = 180; // Width of rectangular base (mm)
+base_depth = 60;  // Depth of rectangular base (mm)
+base_height = 2;  // Thickness of base plate (mm)
+text_height = 5;  // Height of text above base (mm)
 
 // ========================================
 // Hole Configuration
@@ -33,31 +34,18 @@ $fn = 64; // Circle resolution (higher = smoother, slower)
 // ========================================
 // Calculated Values
 // ========================================
-// Approximate text bounds for hole calculation
-text_width = font_size * len(text_string) * 0.6;
-
-// Calculate number of holes based on text width
-num_holes = floor(text_width / hole_spacing) + 1;
+// Calculate number of holes based on base width
+num_holes = floor(base_width / hole_spacing) + 1;
 
 // ========================================
 // Main Assembly
 // ========================================
 difference() {
     union() {
-        // Base plate - solid rectangle that fully contains text with buffer
+        // Base plate - simple rectangle
         color("red")
-        linear_extrude(height = base_height)
-            // Create rectangle from text outline with buffer
-            minkowski() {
-                // Get the text outline
-                text(text_string, 
-                     size = font_size, 
-                     font = font_name, 
-                     halign = "center", 
-                     valign = "center");
-                // Add buffer around it and make it rectangular
-                square([buffer_size * 2, buffer_size * 2], center = true);
-            }
+        translate([0, 0, base_height / 2])
+            cube([base_width, base_depth, base_height], center = true);
         
         // Extruded text on top of base
         color("white")

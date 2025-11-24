@@ -8,22 +8,19 @@ text_string = "WELCOME";
 font_name = "Arial:style=Bold";
 font_size = 50;
 
-buffer_size = 4;
-text_height = 6;
+base_width = 200;
+base_depth = 70;
 base_height = 2.5;
+text_height = 6;
 
 $fn = 64;
 
 // Main assembly - no holes!
 union() {
-    // Solid rectangular base that fully contains text
+    // Simple rectangular base
     color("navy")
-    linear_extrude(height = base_height)
-        minkowski() {
-            text(text_string, size = font_size, font = font_name, 
-                 halign = "center", valign = "center");
-            square([buffer_size * 2, buffer_size * 2], center = true);
-        }
+    translate([0, 0, base_height / 2])
+        cube([base_width, base_depth, base_height], center = true);
     
     color("white")
     translate([0, 0, base_height])

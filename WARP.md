@@ -22,9 +22,10 @@ The sign maker tool creates:
 - `font_size`: Size of the text in mm (default: 40)
 
 ### Dimensional Parameters
-- `buffer_size`: Distance the base extends beyond text outline (default: 3mm)
-- `text_height`: Height of the text above the base (default: 5mm)
+- `base_width`: Width of the rectangular base (default: 180mm)
+- `base_depth`: Depth of the rectangular base (default: 60mm)
 - `base_height`: Thickness of the base plate (default: 2mm)
+- `text_height`: Height of the text above the base (default: 5mm)
 
 ### Hole Configuration
 - `hole_diameter`: Diameter of mounting holes (default: 8mm)
@@ -35,13 +36,13 @@ The sign maker tool creates:
 ## Design Principles
 
 ### Base Generation
-The base is created as a solid rectangle using `minkowski()`:
-- Uses minkowski sum to expand text outline by buffer distance
-- Guarantees buffer surrounds all parts of text precisely
-- Creates uniform rectangular base that fully contains text
+The base is created as a solid rectangle using `cube()`:
+- Simple rectangular base with user-defined width and depth
+- Text is centered on the base
 - Provides a stable, uniform platform for the text
 - Simple, clean aesthetic for professional signage
 - Easy to mount with predictable dimensions
+- Adjust `base_width` and `base_depth` to fit your text
 
 ### Hole Pattern
 Holes are arranged in a single horizontal row:
@@ -75,8 +76,7 @@ For bold, industrial-looking signs similar to tool brand aesthetics:
 ## Technical Notes
 
 ### OpenSCAD Operations
-- `minkowski()`: Expands text outline to create base with exact buffer
-- `square()`: Used with minkowski to create rectangular expansion
+- `cube()`: Creates the rectangular base plate
 - `linear_extrude()`: Converts 2D text to 3D objects
 - `difference()`: Removes holes from solid geometry
 - `halign/valign = "center"`: Centers text at origin
@@ -92,7 +92,6 @@ These are rough estimates; actual dimensions depend on the font and character se
 - Higher `$fn` values create smoother holes but slower rendering
 - Complex fonts may increase render time
 - Keep hole counts reasonable for faster previews
-- `minkowski()` operation for base can be slow; use F5 preview for faster iterations
 
 ## File Organization
 
@@ -141,6 +140,6 @@ If a font doesn't render:
 - Ensure holes intersect with geometry
 
 ### Base Too Small or Too Large
-- Adjust `buffer_size` to change margins around text
-- Rectangular base automatically sizes to text width
-- All margins are equal on all sides
+- Adjust `base_width` and `base_depth` to resize base
+- Text remains centered on the base
+- Make sure base is large enough to contain all text

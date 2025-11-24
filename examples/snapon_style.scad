@@ -8,9 +8,10 @@ text_string = "SNAP-ON";
 font_name = "Futura:style=Bold Italic";
 font_size = 40;
 
-buffer_size = 3;
-text_height = 5;
+base_width = 180;
+base_depth = 60;
 base_height = 2;
+text_height = 5;
 
 hole_diameter = 8;
 hole_depth = 3.2;
@@ -20,20 +21,15 @@ hole_spacing = 15;
 $fn = 64;
 
 // Calculated values
-text_width = font_size * len(text_string) * 0.6;
-num_holes = floor(text_width / hole_spacing) + 1;
+num_holes = floor(base_width / hole_spacing) + 1;
 
 // Main assembly
 difference() {
     union() {
-        // Solid rectangular base that fully contains text
+        // Simple rectangular base
         color("red")
-        linear_extrude(height = base_height)
-            minkowski() {
-                text(text_string, size = font_size, font = font_name, 
-                     halign = "center", valign = "center");
-                square([buffer_size * 2, buffer_size * 2], center = true);
-            }
+        translate([0, 0, base_height / 2])
+            cube([base_width, base_depth, base_height], center = true);
         
         color("white")
         translate([0, 0, base_height])

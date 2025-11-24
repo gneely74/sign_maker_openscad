@@ -8,9 +8,10 @@ text_string = "GARAGE";
 font_name = "Helvetica:style=Bold";
 font_size = 60;
 
-buffer_size = 5;
-text_height = 8;
+base_width = 240;
+base_depth = 80;
 base_height = 3;
+text_height = 8;
 
 hole_diameter = 10;
 hole_depth = 5;
@@ -20,20 +21,15 @@ hole_spacing = 40; // Wider spacing for larger sign
 $fn = 80; // Higher resolution for larger print
 
 // Calculated values
-text_width = font_size * len(text_string) * 0.6;
-num_holes = floor(text_width / hole_spacing) + 1;
+num_holes = floor(base_width / hole_spacing) + 1;
 
 // Main assembly
 difference() {
     union() {
-        // Solid rectangular base that fully contains text
+        // Simple rectangular base
         color("orange")
-        linear_extrude(height = base_height)
-            minkowski() {
-                text(text_string, size = font_size, font = font_name, 
-                     halign = "center", valign = "center");
-                square([buffer_size * 2, buffer_size * 2], center = true);
-            }
+        translate([0, 0, base_height / 2])
+            cube([base_width, base_depth, base_height], center = true);
         
         color("black")
         translate([0, 0, base_height])

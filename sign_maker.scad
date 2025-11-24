@@ -35,7 +35,7 @@ $fn = 64; // Circle resolution (higher = smoother, slower)
 // ========================================
 // Approximate text bounds (actual dimensions depend on font)
 // Using generous multipliers to ensure base covers all text
-text_width = font_size * len(text_string) * 0.8;
+text_width = font_size * len(text_string) * 1.0;
 text_total_height = font_size * 1.5;
 
 // Calculate base dimensions with buffer

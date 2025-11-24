@@ -20,7 +20,7 @@ hole_spacing = 10;
 $fn = 48; // Lower resolution for smaller text
 
 // Calculated values
-text_width = font_size * len(text_string) * 0.8;
+text_width = font_size * len(text_string) * 1.0;
 text_total_height = font_size * 1.5;
 base_width = text_width + 2 * buffer_size;
 base_depth = text_total_height + 2 * buffer_size;

@@ -22,8 +22,7 @@ The sign maker tool creates:
 - `font_size`: Size of the text in mm (default: 40)
 
 ### Dimensional Parameters
-- `base_width`: Width of the rectangular base (default: 180mm)
-- `base_depth`: Depth of the rectangular base (default: 60mm)
+- `buffer_size`: Buffer around text on all sides (default: 10mm)
 - `base_height`: Thickness of the base plate (default: 2mm)
 - `text_height`: Height of the text above the base (default: 5mm)
 
@@ -37,12 +36,13 @@ The sign maker tool creates:
 
 ### Base Generation
 The base is created as a solid rectangle using `cube()`:
-- Simple rectangular base with user-defined width and depth
+- Base dimensions automatically calculated from text size + buffer
+- Width = text_width + 2 * buffer_size
+- Depth = text_height + 2 * buffer_size
 - Text is centered on the base
 - Provides a stable, uniform platform for the text
 - Simple, clean aesthetic for professional signage
-- Easy to mount with predictable dimensions
-- Adjust `base_width` and `base_depth` to fit your text
+- Adjust `buffer_size` to control margins
 
 ### Hole Pattern
 Holes are arranged in a single horizontal row:
@@ -140,6 +140,6 @@ If a font doesn't render:
 - Ensure holes intersect with geometry
 
 ### Base Too Small or Too Large
-- Adjust `base_width` and `base_depth` to resize base
+- Increase `buffer_size` to add more margin around text
+- Base automatically sizes to text + buffer
 - Text remains centered on the base
-- Make sure base is large enough to contain all text

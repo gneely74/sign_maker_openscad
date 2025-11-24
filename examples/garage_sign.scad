@@ -8,8 +8,7 @@ text_string = "GARAGE";
 font_name = "Helvetica:style=Bold";
 font_size = 60;
 
-base_width = 240;
-base_depth = 80;
+buffer_size = 10;
 base_height = 3;
 text_height = 8;
 
@@ -21,6 +20,10 @@ hole_spacing = 40; // Wider spacing for larger sign
 $fn = 80; // Higher resolution for larger print
 
 // Calculated values
+text_width = font_size * len(text_string) * 0.6;
+text_total_height = font_size * 1.2;
+base_width = text_width + 2 * buffer_size;
+base_depth = text_total_height + 2 * buffer_size;
 num_holes = floor(base_width / hole_spacing) + 1;
 
 // Main assembly

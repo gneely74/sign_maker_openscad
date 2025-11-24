@@ -8,12 +8,17 @@ text_string = "WELCOME";
 font_name = "Arial:style=Bold";
 font_size = 50;
 
-base_width = 200;
-base_depth = 70;
+buffer_size = 10;
 base_height = 2.5;
 text_height = 6;
 
 $fn = 64;
+
+// Calculated values
+text_width = font_size * len(text_string) * 0.6;
+text_total_height = font_size * 1.2;
+base_width = text_width + 2 * buffer_size;
+base_depth = text_total_height + 2 * buffer_size;
 
 // Main assembly - no holes!
 union() {

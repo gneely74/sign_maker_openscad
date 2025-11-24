@@ -8,8 +8,7 @@ text_string = "SNAP-ON";
 font_name = "Futura:style=Bold Italic";
 font_size = 40;
 
-base_width = 180;
-base_depth = 60;
+buffer_size = 10;
 base_height = 2;
 text_height = 5;
 
@@ -21,6 +20,10 @@ hole_spacing = 15;
 $fn = 64;
 
 // Calculated values
+text_width = font_size * len(text_string) * 0.6;
+text_total_height = font_size * 1.2;
+base_width = text_width + 2 * buffer_size;
+base_depth = text_total_height + 2 * buffer_size;
 num_holes = floor(base_width / hole_spacing) + 1;
 
 // Main assembly

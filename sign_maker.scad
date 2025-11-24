@@ -13,8 +13,7 @@ font_size = 40; // mm
 // ========================================
 // Dimensional Parameters
 // ========================================
-base_width = 180; // Width of rectangular base (mm)
-base_depth = 60;  // Depth of rectangular base (mm)
+buffer_size = 10; // Buffer around text on all sides (mm)
 base_height = 2;  // Thickness of base plate (mm)
 text_height = 5;  // Height of text above base (mm)
 
@@ -34,6 +33,14 @@ $fn = 64; // Circle resolution (higher = smoother, slower)
 // ========================================
 // Calculated Values
 // ========================================
+// Approximate text bounds (actual dimensions depend on font)
+text_width = font_size * len(text_string) * 0.6;
+text_total_height = font_size * 1.2;
+
+// Calculate base dimensions with buffer
+base_width = text_width + 2 * buffer_size;
+base_depth = text_total_height + 2 * buffer_size;
+
 // Calculate number of holes based on base width
 num_holes = floor(base_width / hole_spacing) + 1;
 

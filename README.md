@@ -44,8 +44,7 @@ OpenSCAD tool for creating customizable 3D printable signs with flowing base pla
 ### Dimensions
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `base_width` | 180 | Width of rectangular base (mm) |
-| `base_depth` | 60 | Depth of rectangular base (mm) |
+| `buffer_size` | 10 | Buffer around text on all sides (mm) |
 | `base_height` | 2 | Thickness of base plate (mm) |
 | `text_height` | 5 | Height of text above base (mm) |
 
@@ -143,9 +142,9 @@ Compatible with printers featuring:
 - Check holes intersect with geometry
 
 ### Base Too Small or Too Large
-- Adjust `base_width` and `base_depth` to resize base
+- Increase `buffer_size` to add more margin around text
+- Base automatically sizes to text + buffer
 - Text remains centered on the base
-- Make sure base is large enough to contain all text
 
 ### Slow Rendering
 - Lower `$fn` value temporarily

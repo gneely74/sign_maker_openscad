@@ -1,0 +1,28 @@
+# OpenSCAD temporary files
+*.bak
+*.backup
+*~
+
+# Build artifacts
+*.stl
+*.amf
+*.3mf
+*.obj
+
+# Keep exports directory structure but ignore STL files
+exports/*
+!exports/README.md
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Editor temporary files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Logs
+*.log

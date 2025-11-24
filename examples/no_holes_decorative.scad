@@ -14,18 +14,16 @@ base_height = 2.5;
 
 $fn = 64;
 
-// Calculated values for rectangle
-text_width = font_size * len(text_string) * 0.6;
-
 // Main assembly - no holes!
 union() {
-    // Solid rectangular base
+    // Solid rectangular base that fully contains text
     color("navy")
-    translate([0, 0, 0])
-        cube([text_width + 2 * buffer_size, 
-              font_size * 1.2 + 2 * buffer_size, 
-              base_height], 
-             center = true);
+    linear_extrude(height = base_height)
+        minkowski() {
+            text(text_string, size = font_size, font = font_name, 
+                 halign = "center", valign = "center");
+            square([buffer_size * 2, buffer_size * 2], center = true);
+        }
     
     color("white")
     translate([0, 0, base_height])

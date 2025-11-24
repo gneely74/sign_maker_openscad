@@ -35,8 +35,10 @@ The sign maker tool creates:
 ## Design Principles
 
 ### Base Generation
-The base is created as a solid rectangle:
-- Calculated dimensions based on text size + buffer on all sides
+The base is created as a solid rectangle using `minkowski()`:
+- Uses minkowski sum to expand text outline by buffer distance
+- Guarantees buffer surrounds all parts of text precisely
+- Creates uniform rectangular base that fully contains text
 - Provides a stable, uniform platform for the text
 - Simple, clean aesthetic for professional signage
 - Easy to mount with predictable dimensions
@@ -73,7 +75,8 @@ For bold, industrial-looking signs similar to tool brand aesthetics:
 ## Technical Notes
 
 ### OpenSCAD Operations
-- `cube()`: Creates the rectangular base plate
+- `minkowski()`: Expands text outline to create base with exact buffer
+- `square()`: Used with minkowski to create rectangular expansion
 - `linear_extrude()`: Converts 2D text to 3D objects
 - `difference()`: Removes holes from solid geometry
 - `halign/valign = "center"`: Centers text at origin
@@ -89,6 +92,7 @@ These are rough estimates; actual dimensions depend on the font and character se
 - Higher `$fn` values create smoother holes but slower rendering
 - Complex fonts may increase render time
 - Keep hole counts reasonable for faster previews
+- `minkowski()` operation for base can be slow; use F5 preview for faster iterations
 
 ## File Organization
 

@@ -33,9 +33,8 @@ $fn = 64; // Circle resolution (higher = smoother, slower)
 // ========================================
 // Calculated Values
 // ========================================
-// Approximate text bounds (actual dimensions depend on font)
+// Approximate text bounds for hole calculation
 text_width = font_size * len(text_string) * 0.6;
-text_total_height = font_size * 1.2;
 
 // Calculate number of holes based on text width
 num_holes = floor(text_width / hole_spacing) + 1;
@@ -45,13 +44,20 @@ num_holes = floor(text_width / hole_spacing) + 1;
 // ========================================
 difference() {
     union() {
-        // Base plate - solid rectangle
+        // Base plate - solid rectangle that fully contains text with buffer
         color("red")
-        translate([0, 0, 0])
-            cube([text_width + 2 * buffer_size, 
-                  text_total_height + 2 * buffer_size, 
-                  base_height], 
-                 center = true);
+        linear_extrude(height = base_height)
+            // Create rectangle from text outline with buffer
+            minkowski() {
+                // Get the text outline
+                text(text_string, 
+                     size = font_size, 
+                     font = font_name, 
+                     halign = "center", 
+                     valign = "center");
+                // Add buffer around it and make it rectangular
+                square([buffer_size * 2, buffer_size * 2], center = true);
+            }
         
         // Extruded text on top of base
         color("white")

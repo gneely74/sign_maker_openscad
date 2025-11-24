@@ -20,8 +20,8 @@ hole_spacing = 15;
 $fn = 64;
 
 // Calculated values
-text_width = font_size * len(text_string) * 0.6;
-text_total_height = font_size * 1.2;
+text_width = font_size * len(text_string) * 0.8;
+text_total_height = font_size * 1.5;
 base_width = text_width + 2 * buffer_size;
 base_depth = text_total_height + 2 * buffer_size;
 num_holes = floor(base_width / hole_spacing) + 1;

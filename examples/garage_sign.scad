@@ -26,11 +26,13 @@ num_holes = floor(text_width / hole_spacing) + 1;
 // Main assembly
 difference() {
     union() {
+        // Solid rectangular base
         color("orange")
-        linear_extrude(height = base_height)
-            offset(r = buffer_size)
-                text(text_string, size = font_size, font = font_name, 
-                     halign = "center", valign = "center");
+        translate([0, 0, 0])
+            cube([text_width + 2 * buffer_size, 
+                  font_size * 1.2 + 2 * buffer_size, 
+                  base_height], 
+                 center = true);
         
         color("black")
         translate([0, 0, base_height])

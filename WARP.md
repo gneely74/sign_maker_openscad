@@ -10,7 +10,7 @@ This repository contains OpenSCAD programs for creating 3D printable signs and t
 
 The sign maker tool creates:
 - **3D Text Objects**: Extruded text with configurable fonts and sizes
-- **Flowing Base Plates**: Contiguous base that follows the outline of text characters
+- **Solid Rectangular Base**: Clean rectangular base plate that extends beyond text by buffer_size
 - **Mounting Holes**: Evenly spaced holes for mounting or design purposes
 - **Multi-layer Design**: Separate text and base layers for visual depth
 
@@ -35,11 +35,11 @@ The sign maker tool creates:
 ## Design Principles
 
 ### Base Generation
-The base is created using OpenSCAD's `offset()` function, which:
-- Creates a flowing outline around the text
-- Joins nearby letters into a contiguous base when they overlap
-- Maintains the character of individual letter shapes on outer edges
-- Provides a stable platform for the text
+The base is created as a solid rectangle:
+- Calculated dimensions based on text size + buffer on all sides
+- Provides a stable, uniform platform for the text
+- Simple, clean aesthetic for professional signage
+- Easy to mount with predictable dimensions
 
 ### Hole Pattern
 Holes are arranged in a single horizontal row:
@@ -73,7 +73,7 @@ For bold, industrial-looking signs similar to tool brand aesthetics:
 ## Technical Notes
 
 ### OpenSCAD Operations
-- `offset(r = buffer_size)`: Creates the flowing base outline
+- `cube()`: Creates the rectangular base plate
 - `linear_extrude()`: Converts 2D text to 3D objects
 - `difference()`: Removes holes from solid geometry
 - `halign/valign = "center"`: Centers text at origin
@@ -136,7 +136,7 @@ If a font doesn't render:
 - Verify `hole_depth` is appropriate
 - Ensure holes intersect with geometry
 
-### Base Not Joining Letters
-- Increase `buffer_size` to expand base
-- Check font spacing and kerning
-- Consider using tighter letter spacing in text string
+### Base Too Small or Too Large
+- Adjust `buffer_size` to change margins around text
+- Rectangular base automatically sizes to text width
+- All margins are equal on all sides

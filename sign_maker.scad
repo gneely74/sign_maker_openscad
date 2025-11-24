@@ -1,19 +1,19 @@
 // ========================================
 // Sign Maker - 3D Printable Sign Generator
 // ========================================
-// Creates signs with flowing base plates and mounting holes
+// Creates signs with rectangular base plates and mounting holes
 
 // ========================================
 // Text Configuration
 // ========================================
 text_string = "SNAP-ON";
-font_name = "Futura:style=Bold Italic";
+font_name = "SF Sports Night:style=Bold";
 font_size = 40; // mm
 
 // ========================================
 // Dimensional Parameters
 // ========================================
-buffer_size = 3; // Distance base extends beyond text outline (mm)
+buffer_size = 3; // Margin around text on all sides (mm)
 text_height = 5; // Height of text above base (mm)
 base_height = 2; // Thickness of base plate (mm)
 
@@ -45,15 +45,13 @@ num_holes = floor(text_width / hole_spacing) + 1;
 // ========================================
 difference() {
     union() {
-        // Base plate with flowing outline
+        // Base plate - solid rectangle
         color("red")
-        linear_extrude(height = base_height)
-            offset(r = buffer_size)
-                text(text_string, 
-                     size = font_size, 
-                     font = font_name, 
-                     halign = "center", 
-                     valign = "center");
+        translate([0, 0, 0])
+            cube([text_width + 2 * buffer_size, 
+                  text_total_height + 2 * buffer_size, 
+                  base_height], 
+                 center = true);
         
         // Extruded text on top of base
         color("white")
